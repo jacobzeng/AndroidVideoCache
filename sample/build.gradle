@@ -1,18 +1,7 @@
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
-    }
-}
-
+apply plugin: 'com.android.application'
 repositories {
     maven { url 'https://github.com/dahlgren/vpi-aar/raw/master' }
 }
-
-apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 23
@@ -24,21 +13,21 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName '1.0'
+        ndk {
+            //支持的abi
+            abiFilters 'armeabi-v7a'//,'x86_64','arm64-v8a','x86'
+        }
     }
 }
 
-apt {
-    arguments {
-        androidManifestFile variant.outputs[0].processResources.manifestFile
-        resourcePackageName android.defaultConfig.applicationId
-    }
-}
-
+def AAVersion = '4.5.2'
 dependencies {
-//    compile project(':library')
+    annotationProcessor "org.androidannotations:androidannotations:$AAVersion"
+    compile "org.androidannotations:androidannotations-api:$AAVersion"
+    compile project(':library')
     compile 'com.android.support:support-v4:23.1.0'
     compile 'org.androidannotations:androidannotations-api:3.3.2'
-    compile 'com.danikula:videocache:2.7.1'
+//    compile 'com.danikula:videocache:2.7.1'
     compile 'com.viewpagerindicator:library:2.4.2-SNAPSHOT@aar'
-    apt 'org.androidannotations:androidannotations:3.3.2'
+    implementation 'com.yyl.vlc:vlc-android-sdk:3.0.13'
 }

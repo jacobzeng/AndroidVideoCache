@@ -5,6 +5,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
 
     <application
         android:name=".App"
@@ -24,6 +26,16 @@
         <activity android:name=".MultipleVideosActivity_" />
         <activity android:name=".VideoGalleryActivity_" />
         <activity android:name=".SharedCacheActivity_" />
+
+        <activity android:name=".VlcPlayerActivity_"
+            android:launchMode="singleTask" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="org.fangzz.videoplayer" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

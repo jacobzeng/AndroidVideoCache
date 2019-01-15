@@ -1,6 +1,7 @@
 package com.danikula.videocache.sample;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -22,7 +23,8 @@ import java.util.List;
 @EActivity(R.layout.activity_menu)
 public class MenuActivity extends FragmentActivity {
 
-    @ViewById ListView listView;
+    @ViewById
+    ListView listView;
 
     @AfterViews
     void onViewInjected() {
@@ -55,6 +57,15 @@ public class MenuActivity extends FragmentActivity {
             Log.e(null, "Error cleaning cache", e);
             Toast.makeText(this, "Error cleaning cache", Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Click(R.id.viewCacheFolderButton)
+    void onViewCacheFolderButtonClick() {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Uri cacheDir = Uri.parse(Utils.getVideoCacheDir(this).getAbsolutePath());
+//        intent.setData(cacheDir);
+        intent.setDataAndType(cacheDir, "*/*");    // or use */*
+        startActivity(intent);
     }
 
     private static final class ListEntry {
